@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  @apply w-full h-full bg-slate-100
+}
+
+.row {
+  @apply flex flex-row flex-wrap
+}
+
+.center {
+  @apply justify-center items-center
+}
+
+@media print {
+  .printing-view {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 15px;
+    font-size: 14px;
+    line-height: 18px;
+  }
+}

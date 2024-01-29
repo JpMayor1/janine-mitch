@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id            String         @id
+  marked        Boolean?       @default(false)
+  createdAt     DateTime?      @default(now()) @db.Timestamp(6)
+  updatedAt     DateTime?      @default(now()) @db.Timestamp(6)
+  email         String         @unique
+  password      String
+  username      String
+  role          String?        @default("USER")
+  member        member[]
+}
+
+model logs {
+  id        Int          @unique @default(autoincrement())
+  marked    Boolean?     @default(false)
+  createdAt DateTime?    @default(now()) @db.Timestamp(6)
+  type      Int
+  systemID  String
+  data      Json
+  system    organization @relation(fields: [systemID], references: [id])
+}
+
+model images {
+  id        Int       @unique @default(autoincrement())
+  marked    Boolean?  @default(false)
+  createdAt DateTime? @default(now()) @db.Timestamp(6)
+  owner     String
+  name      String
+  type      String
+  content   Bytes
+}
+
+model organization {
+  id          String    @id
+  marked      Boolean?  @default(false)
+  createdAt   DateTime? @default(now()) @db.Timestamp(6)
+  updatedAt   DateTime? @default(now()) @db.Timestamp(6)
+  name        String?
+  contact     String?
+  description String?
+  data        Json?     @db.Json
+  members     member[]
+  logs        logs[]
+
+  residents   resident[]
+}
+
+model member {
+  id             String       @id
+  user           user         @relation(fields: [id], references: [id])
+  marked         Boolean?     @default(false)
+  createdAt      DateTime?    @default(now()) @db.Timestamp(6)
+  updatedAt      DateTime?    @default(now()) @db.Timestamp(6)
+  organizationID String?
+  active         Boolean?     @default(true)
+  data           Json         @db.Json
+  permissions    Int[]
+  organization   organization? @relation(fields: [organizationID], references: [id])
+}
+
+// model invites {
+//   code          Int           @id
+//   createdAt     DateTime      @default(now()) @db.Timestamp(6)
+//   type          String
+//   id            String
+// }
+
+model resident {
+  id              String    @id
+  publicID        String?
+  official        officials?
+  organizationID  String
+  organization    organization  @relation(fields: [organizationID], references: [id])
+
+  marked          Boolean?  @default(false)
+  createdAt       DateTime? @default(now()) @db.Timestamptz(6)
+  updatedAt       DateTime? @default(now()) @db.Timestamptz(6)
+  firstname       String
+  middlename      String?
+  lastname        String
+  birthdate       String
+  birthplace      String
+  age             Int
+  gender          String
+  contact         String
+  citizenship     String?
+  civilStatus     String
+  email           String?
+  status          String
+  purok           String
+  street          String
+  religion        String
+  occupation      String?
+  voter           Boolean   @default(false)
+  PWD             Boolean   @default(false)
+}
+
+model officials {
+  id            Int       @id       @default(autoincrement())
+  residentID    String    @unique 
+  resident      resident  @relation(fields: [residentID], references: [id])
+  marked        Boolean?  @default(false)
+  createdAt     DateTime? @default(now()) @db.Timestamptz(6)
+  updatedAt     DateTime? @default(now()) @db.Timestamptz(6)
+  active        Boolean
+  startYear     String
+  endYear       String
+  position      String
+  chairmanship  String
+}

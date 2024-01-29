@@ -1,0 +1,53 @@
+{
+  "name": "monty-systems",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "migrate:dev": "dotenv -e .env.local -- npx prisma migrate dev",
+    "db:sync": "dotenv -e .env.local -- npx prisma db pull && npx prisma generate",
+    "db:push": "dotenv -e .env.local -- npx prisma db push && npx prisma generate"
+  },
+  "dependencies": {
+    "@cyntler/react-doc-viewer": "^1.14.1",
+    "@mantine/hooks": "^7.4.1",
+    "@material-tailwind/react": "^2.1.8",
+    "@prisma/client": "^5.8.0",
+    "apexcharts": "^3.45.2",
+    "cookie": "^0.6.0",
+    "dayjs": "^1.11.10",
+    "docx-preview": "^0.3.0",
+    "easy-template-x": "^3.2.0",
+    "jose": "^5.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "nanoid": "^5.0.4",
+    "next": "14.0.4",
+    "postgres-date": "^2.1.0",
+    "react": "^18",
+    "react-apexcharts": "^1.4.1",
+    "react-dom": "^18",
+    "react-easy-crop": "^5.0.4",
+    "react-icons": "^5.0.1",
+    "react-image-crop": "^11.0.5",
+    "zod": "^3.22.4",
+    "zustand": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/cookie": "^0.6.0",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/node": "^20",
+    "@types/react": "^18.2.19",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.16",
+    "dotenv-cli": "^7.3.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.4",
+    "postcss": "^8.4.33",
+    "prisma": "^5.8.1",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
