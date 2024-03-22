@@ -2,47 +2,92 @@
 
 import { Button, Input, Option, Select } from "@material-tailwind/react"
 import dayjs from "dayjs"
-import { renderAsync } from "docx-preview"
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
+import Image from "next/image";
+import { print } from '../../../../utils/helpers'
+
+const barangay_logo = require("./../../../../../../public/logos/barangay_logo.png");
+const municipality_logo = require("./../../../../../../public/logos/municipality_logo.png");
 
 function Request() {
-  const [form, setForm] = useState<{}>({})
-  const rendererRef = useRef(null)
+  const [form, setForm] = useState<{}>({}) as any;
 
-  const [docx, setDocx] = useState<any | null>(null)
+  const Document = () => (
+    <>
+      <iframe id="ifmcontentstoprint" style={{ position: "absolute", display: "none" }}></iframe>
 
-  useEffect(() => {
-    if (rendererRef.current) {
-      renderAsync(Buffer.from(docx), rendererRef.current).then((res) => {
-        console.log('done');
-      })
-    }
+      <div style={{ display: "none" }}>
+        <div id="divcontents" className="container mx-auto rounded-xl shadow-md bg-white">
+          <div>
+            <div style={{ display: "flex" }}>
+              <Image style={{ flex: "20%" }} src={barangay_logo} alt={""} />
+              <div style={{ flex: "60%", textAlign: "center" }}>
+                Republic of the Philippines<br />
+                Province of Camarines Norte <br />
+                Municipality of Jose Panganiban <br />
+                Barangay Plaridel <br /> <br /><br />
 
-  }, [docx])
+                <b>OFFICE OF THE PUNONG BARANGAY</b>
+              </div>
+              <Image style={{ flex: "20%" }} src={municipality_logo} alt={""} />
+            </div>
+            <br />
+            <hr className="solid" />
+            <div style={{ display: "flex" }}>
+              <div style={{ flex: "15%" }} />
+              <div style={{ flex: "70%", textAlign: "center" }}>
+                <div style={{ textAlign: "center", fontSize: "1.5rem" }}>
+                  <b><u>BARANGAY REQUEST FORM</u></b>
+                </div>
+                <br /><br />
+              </div>
+              <div style={{ flex: "15%" }} />
+            </div>
+            <div style={{ display: "flex" }}>
+              <div style={{ flex: "15%" }} />
+              <div style={{ flex: "70%" }} >
+                <div style={{ display: "flex", border: "1px black solid", padding: "3px" }}>
+                  Name: {form.name}
+                </div>
+                <br /><br />
+                <div style={{ display: "flex", border: "1px black solid", padding: "3px" }}>
+                  Address: {form.address}
+                </div>
+                <br /><br />
+                <div style={{ display: "flex" }}>
+                  <div style={{ flex: "35%" }}>
+                    <div style={{ display: "flex", border: "1px black solid", padding: "3px" }}>
+                      Age: {form.age}
+                    </div>
+                  </div>
+                  <div style={{ flex: "30%" }} />
+                  <div style={{ flex: "35%" }}>
+                    <div style={{ display: "flex", border: "1px black solid", padding: "3px" }}>
+                      Sex: {form.gender}
+                    </div>
+                  </div>
+                </div>
+                <br /><br />
+                <div style={{ display: "flex", border: "1px black solid", padding: "3px" }}>
+                  Request Documents: {form.document}
+                </div>
+                <br /><br />
+                <div style={{ display: "flex" }}>
+                  <div style={{ flex: "30%" }} />
+                  <div style={{ flex: "40%", border: "1px black solid", padding: "3px" }} >
+                    Date of release: {form.release}
+                  </div>
+                  <div style={{ flex: "30%" }} />
+                </div>
+              </div>
+              <div style={{ flex: "15%" }} />
+            </div>
+          </div>
+        </div>
+      </div >
+    </>
+  )
 
-  const Generate = async () => {
-    const res = await fetch('/api/documents', {
-      method: 'POST',
-      body: JSON.stringify({
-        type: 'request',
-        data: form
-      })
-    })
-
-    if (res.status === 200) {
-      const { buffer }: { buffer: Buffer } = await res.json();
-      console.log('buffered');
-      setDocx(buffer);
-    }
-  }
-
-  if (docx !== null) {
-    return (
-      <div ref={rendererRef} className="w-full h-full rounded-xl shadow-md bg-white">
-
-      </div>
-    )
-  }
 
   return (
     <div className="w-full h-full p-10 flex flex-col justify-center items-center rounded-xl shadow-lg bg-white">
@@ -53,20 +98,20 @@ function Request() {
         <div className="flex-auto">
           <Input
             label="Name"
-            onChange={(ev) => setForm((prev) => ({ ...prev, name: ev.target.value }))}
+            onChange={(ev) => setForm((prev: any) => ({ ...prev, name: ev.target.value }))}
           />
         </div>
         <div className="flex-auto">
           <Input
             label="Address"
-            onChange={(ev) => setForm((prev) => ({ ...prev, address: ev.target.value }))}
+            onChange={(ev) => setForm((prev: any) => ({ ...prev, address: ev.target.value }))}
           />
         </div>
         <div className="flex-auto">
           <Input
             type="number"
             label="Age"
-            onChange={(ev) => setForm((prev) => ({ ...prev, age: ev.target.value }))}
+            onChange={(ev) => setForm((prev: any) => ({ ...prev, age: ev.target.value }))}
           />
         </div>
       </div>
@@ -74,7 +119,7 @@ function Request() {
         <div className="flex-auto">
           <Select
             label="Gender"
-            onChange={(ev) => setForm((prev) => ({ ...prev, gender: ev }))}
+            onChange={(ev) => setForm((prev: any) => ({ ...prev, gender: ev }))}
           >
             <Option value="Male">Male</Option>
             <Option value="Female">Female</Option>
@@ -84,20 +129,21 @@ function Request() {
           <Input
             type="text"
             label="Document"
-            onChange={(ev) => setForm((prev) => ({ ...prev, document: ev.target.value }))}
+            onChange={(ev) => setForm((prev: any) => ({ ...prev, document: ev.target.value }))}
           />
         </div>
         <div className="flex-auto">
           <Input
             type="date"
             label="Date of Release"
-            onChange={(ev) => setForm((prev) => ({ ...prev, release: dayjs(ev.target.value).format("MM/DD/YYYY") }))}
+            onChange={(ev) => setForm((prev: any) => ({ ...prev, release: dayjs(ev.target.value).format("MM/DD/YYYY") }))}
           />
         </div>
       </div>
       <div className="w-1/2 my-3 text-end">
-        <Button onClick={() => Generate()}>
+        <Button onClick={print}>
           <span>Generate Result</span>
+          <Document></Document>
         </Button>
       </div>
     </div>

@@ -33,3 +33,12 @@ body {
     line-height: 18px;
   }
 }
+
+/* Solid border */
+hr.solid {
+  border-top: 3px solid #bbb;
+}
+
+.right {
+  float: right;
+}
