@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma"
 import DashboardHeader from "./Header"
-import { FaHouseUser } from "react-icons/fa6"
+import { FaHouseUser, FaBook, FaPencil, FaWheelchairMove, FaScaleBalanced } from "react-icons/fa6"
+
 import DashboardChart from "./chart"
 import Residents from "../residents/Residents"
 import DataTable from "@/components/DataTable"
@@ -60,43 +61,43 @@ async function DashboardPage({ params }: DashboardPageProps) {
           </div>
         </div>
 
-        <div className="w-80 p-10 rounded-xl shadow-md flex flex-row bg-orange-300 text-white">
+        <div className="w-80 p-10 rounded-xl shadow-md flex flex-row bg-blue-300 text-white">
           <div className="flex-auto">
             <div className="text-3xl font-bold">{voters}</div>
-            <div className="text-lg font-semibold ml-auto text-yellow-50">Voters</div>
+            <div className="text-lg font-semibold ml-auto text-blue-50">Voters</div>
           </div>
           <div className="flex-auto text-end">
-            <FaHouseUser size={30} className="ml-auto" />
+            <FaPencil size={30} className="ml-auto" />
           </div>
         </div>
 
-        <div className="w-80 p-10 rounded-xl shadow-md flex flex-row bg-orange-400 text-white">
+        <div className="w-80 p-10 rounded-xl shadow-md flex flex-row bg-red-400 text-white">
           <div className="flex-auto">
             <div className="text-3xl font-bold">{notVoters}</div>
-            <div className="text-lg font-semibold ml-auto text-yellow-50">Non-Voters</div>
+            <div className="text-lg font-semibold ml-auto text-red-50">Non-Voters</div>
           </div>
           <div className="flex-auto text-end">
-            <FaHouseUser size={30} className="ml-auto" />
+            <FaBook size={30} className="ml-auto" />
           </div>
         </div>
 
-        <div className="w-80 p-10 rounded-xl shadow-md flex flex-row bg-blue-200 text-white">
+        <div className="w-80 p-10 rounded-xl shadow-md flex flex-row bg-indigo-200 text-white">
           <div className="flex-auto">
             <div className="text-3xl font-bold">{PWD}</div>
             <div className="text-lg font-semibold ml-auto text-blue-50">PWD</div>
           </div>
           <div className="flex-auto text-end">
-            <FaHouseUser size={30} className="ml-auto" />
+            <FaWheelchairMove size={30} className="ml-auto" />
           </div>
         </div>
 
-        <div className="w-80 p-10 rounded-xl shadow-md flex flex-row bg-indigo-400 text-white">
+        <div className="w-80 p-10 rounded-xl shadow-md flex flex-row bg-cyan-400 text-white">
           <div className="flex-auto">
             <div className="text-3xl font-bold">{officials}</div>
-            <div className="text-lg font-semibold ml-auto text-blue-50">Officials</div>
+            <div className="text-lg font-semibold ml-auto text-black-50">Officials</div>
           </div>
           <div className="flex-auto text-end">
-            <FaHouseUser size={30} className="ml-auto" />
+            <FaScaleBalanced size={30} className="ml-auto" />
           </div>
         </div>
       </div>

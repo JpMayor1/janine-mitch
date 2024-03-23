@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import Residents from "./Residents"
-import { FaHouseUser } from "react-icons/fa6"
+import { FaHouseUser, FaPencil, FaBook, FaWheelchairMove } from "react-icons/fa6"
 
 type RouteParams = {
   params: {
@@ -45,33 +45,33 @@ async function ResidentPage({ params }: RouteParams) {
           </div>
         </div>
 
-        <div className="flex-auto p-10 rounded-xl shadow-md flex flex-row bg-orange-300 text-white">
+        <div className="flex-auto p-10 rounded-xl shadow-md flex flex-row bg-blue-300 text-white">
           <div className="flex-auto">
             <div className="text-3xl font-bold">{voters}</div>
-            <div className="text-lg font-semibold ml-auto text-yellow-50">Voters</div>
+            <div className="text-lg font-semibold ml-auto text-blue-50">Voters</div>
           </div>
           <div className="flex-auto text-end">
-            <FaHouseUser size={30} className="ml-auto" />
+            <FaPencil size={30} className="ml-auto" />
           </div>
         </div>
 
-        <div className="flex-auto p-10 rounded-xl shadow-md flex flex-row bg-orange-400 text-white">
+        <div className="flex-auto p-10 rounded-xl shadow-md flex flex-row bg-red-400 text-white">
           <div className="flex-auto">
             <div className="text-3xl font-bold">{notVoters}</div>
-            <div className="text-lg font-semibold ml-auto text-yellow-50">Non-Voters</div>
+            <div className="text-lg font-semibold ml-auto text-red-50">Non-Voters</div>
           </div>
           <div className="flex-auto text-end">
-            <FaHouseUser size={30} className="ml-auto" />
+            <FaBook size={30} className="ml-auto" />
           </div>
         </div>
 
-        <div className="flex-auto p-10 rounded-xl shadow-md flex flex-row bg-blue-200 text-white">
+        <div className="flex-auto p-10 rounded-xl shadow-md flex flex-row bg-indigo-200 text-white">
           <div className="flex-auto">
             <div className="text-3xl font-bold">{PWD}</div>
             <div className="text-lg font-semibold ml-auto text-blue-50">PWD</div>
           </div>
           <div className="flex-auto text-end">
-            <FaHouseUser size={30} className="ml-auto" />
+            <FaWheelchairMove size={30} className="ml-auto" />
           </div>
         </div>
       </div>

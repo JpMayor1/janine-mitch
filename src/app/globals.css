@@ -42,3 +42,13 @@ hr.solid {
 .right {
   float: right;
 }
+
+
+p.error {
+  color: #bf1650;
+}
+
+p.error::before {
+  display: inline;
+  content: "⚠ ";
+}

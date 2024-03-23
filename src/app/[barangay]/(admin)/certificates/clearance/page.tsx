@@ -3,6 +3,8 @@
 import { Button, Input } from "@material-tailwind/react";
 import dayjs from "dayjs";
 import { useState } from "react";
+import { useForm, SubmitHandler, } from "react-hook-form"
+import { ErrorMessage } from "@hookform/error-message"
 import Image from "next/image";
 import { print } from '../../../../utils/helpers'
 
@@ -11,6 +13,15 @@ const municipality_logo = require("./../../../../../../public/logos/municipality
 
 function Clearance() {
   const [form, setForm] = useState<{}>({}) as any;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<any>({
+    criteriaMode: "all",
+  })
+  const onSubmit: SubmitHandler<any> = (data) => print()
+
 
   const Document = () => (
     <>
@@ -86,86 +97,143 @@ function Clearance() {
         <div className="relative">
         </div>
       </div>
-      <div className="w-1/2 flex flex-row my-3 gap-x-5">
-        <div className="flex-auto">
-          <Input
-            label="Name"
-            onChange={(ev) =>
-              setForm((prev: any) => ({ ...prev, name: ev.target.value }))
-            }
-          />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="w-1/2 flex flex-row my-3 gap-x-5">
+          <div className="flex-auto">
+            <Input
+              {...register("name", {
+                required: "This field is required."
+              })}
+              label="Name"
+              onChange={(ev) =>
+                setForm((prev: any) => ({ ...prev, name: ev.target.value }))
+              }
+            />
+            <ErrorMessage
+              errors={errors}
+              name="name"
+              render={({ message }) => <p className="error">{message}</p>}
+            />
+          </div>
+          <div className="flex-auto">
+            <Input
+              {...register("barangay", {
+                required: "This field is required."
+              })}
+              label="Resident of Barangay"
+              onChange={(ev) =>
+                setForm((prev: any) => ({ ...prev, barangay: ev.target.value }))
+              }
+            />
+            <ErrorMessage
+              errors={errors}
+              name="barangay"
+              render={({ message }) => <p className="error">{message}</p>}
+            />
+          </div>
+          <div className="flex-auto">
+            <Input
+              {...register("count", { valueAsNumber: true, required: "This field is required." })}
+              type="number"
+              label="Been living for years/month"
+              onChange={(ev) =>
+                setForm((prev: any) => ({ ...prev, count: ev.target.value }))
+              }
+            />
+            <ErrorMessage
+              errors={errors}
+              name="count"
+              render={({ message }) => <p className="error">{message}</p>}
+            />
+          </div>
         </div>
-        <div className="flex-auto">
-          <Input
-            label="Resident of Barangay"
-            onChange={(ev) =>
-              setForm((prev: any) => ({ ...prev, barangay: ev.target.value }))
-            }
-          />
+        <div className="w-1/2 flex flex-row my-3 gap-x-5">
+          <div className="flex-auto">
+            <Input
+              {...register("day",
+                {
+                  min: { value: 0, message: "Must be a valid day" },
+                  max: { value: 31, message: "Must be a valid day" },
+                  required: "This field is required."
+                })}
+              type="number"
+              label="Day Issued"
+              onChange={(ev) =>
+                setForm((prev: any) => ({ ...prev, day: ev.target.value }))
+              }
+            />
+            <ErrorMessage
+              errors={errors}
+              name="day"
+              render={({ message }) => <p className="error">{message}</p>}
+            />
+          </div>
+          <div className="flex-auto">
+            <Input
+              {...register("month", {
+                required: "This field is required."
+              })}
+              type="text"
+              label="Month Issued"
+              onChange={(ev) =>
+                setForm((prev: any) => ({ ...prev, month: ev.target.value }))
+              }
+            />
+            <ErrorMessage
+              errors={errors}
+              name="month"
+              render={({ message }) => <p className="error">{message}</p>}
+            />
+          </div>
+          <div className="flex-auto">
+            <Input
+              {...register("year", {
+                required: "This field is required."
+              })}
+              type="number"
+              label="Year Issued"
+              defaultValue={new Date().getFullYear()}
+              min={new Date().getFullYear()}
+              onChange={(ev) =>
+                setForm((prev: any) => ({ ...prev, year: ev.target.value }))
+              }
+            />
+            <ErrorMessage
+              errors={errors}
+              name="year"
+              render={({ message }) => <p className="error">{message}</p>}
+            />
+          </div>
         </div>
-        <div className="flex-auto">
-          <Input
-            type="number"
-            label="Been living for years/month"
-            onChange={(ev) =>
-              setForm((prev: any) => ({ ...prev, count: ev.target.value }))
-            }
-          />
+        <div className="w-1/2 my-3">
+          <div className="w-40">
+            <Input
+              {...register("validity", {
+                required: "This field is required."
+              })}
+              type="date"
+              label="Valid Until"
+              onChange={(ev) =>
+                setForm((prev: any) => ({
+                  ...prev,
+                  validity: dayjs(ev.target.value).format("MM/DD/YYYY"),
+                }))
+              }
+            />
+            <ErrorMessage
+              errors={errors}
+              name="validity"
+              render={({ message }) => <p className="error">{message}</p>}
+            />
+          </div>
         </div>
-      </div>
-      <div className="w-1/2 flex flex-row my-3 gap-x-5">
-        <div className="flex-auto">
-          <Input
-            type="number"
-            min={1}
-            max={31}
-            label="Day Issued"
-            onChange={(ev) =>
-              setForm((prev: any) => ({ ...prev, day: ev.target.value }))
-            }
-          />
+        <div className="w-1/2 my-3 text-end">
+          <Button type="submit">
+            <span>Generate Result</span>
+            <Document></Document>
+          </Button>
         </div>
-        <div className="flex-auto">
-          <Input
-            type="text"
-            label="Month Issued"
-            onChange={(ev) =>
-              setForm((prev: any) => ({ ...prev, month: ev.target.value }))
-            }
-          />
-        </div>
-        <div className="flex-auto">
-          <Input
-            type="number"
-            label="Year Issued"
-            defaultValue={new Date().getFullYear()}
-            min={new Date().getFullYear()}
-            onChange={(ev) =>
-              setForm((prev: any) => ({ ...prev, year: ev.target.value }))
-            }
-          />
-        </div>
-      </div>
-      <div className="w-1/2 my-3">
-        <div className="w-40">
-          <Input
-            type="date"
-            label="Valid Until"
-            onChange={(ev) =>
-              setForm((prev: any) => ({
-                ...prev,
-                validity: dayjs(ev.target.value).format("MM/DD/YYYY"),
-              }))
-            }
-          />
-        </div>
-      </div>
-      <div className="w-1/2 my-3 text-end">
-        <Button onClick={print}>
-          <span>Generate Result</span>
-          <Document />
-        </Button>
-      </div>
+      </form>
     </div >
   );
 }
