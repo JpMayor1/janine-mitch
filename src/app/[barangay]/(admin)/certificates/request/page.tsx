@@ -107,13 +107,13 @@ function Request() {
 
 
   return (
-    <div className="w-full h-full p-10 flex flex-col justify-center items-center rounded-xl shadow-lg bg-white">
-      <div className="w-1/2 text-center text-3xl my-5 font-bold">
+    <div className="w-full h-full p-10 flex flex-col rounded-xl shadow-lg bg-white">
+      <div className="w-full text-center text-3xl my-5 font-bold">
         BARANGAY DOCUMENT REQUEST
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="w-1/2 flex flex-row my-3 gap-x-5">
-          <div className="flex-auto">
+        <div className="columns justify-start">
+          <div className="my-2">
             <Input
               {...register("name", {
                 required: "This field is required."
@@ -127,7 +127,7 @@ function Request() {
               render={({ message }) => <p className="error">{message}</p>}
             />
           </div>
-          <div className="flex-auto">
+          <div className="my-2">
             <Input
               {...register("address", {
                 required: "This field is required."
@@ -141,32 +141,7 @@ function Request() {
               render={({ message }) => <p className="error">{message}</p>}
             />
           </div>
-          <div className="flex-auto">
-            <Input
-              {...register("age", { valueAsNumber: true, required: "This field is required." })}
-              type="number"
-              label="Age"
-              onChange={(ev) => setForm((prev: any) => ({ ...prev, age: ev.target.value }))}
-            />
-            <ErrorMessage
-              errors={errors}
-              name="age"
-              render={({ message }) => <p className="error">{message}</p>}
-            />
-          </div>
-        </div>
-        <div className="w-1/2 flex flex-row my-3 gap-x-5">
-          <div className="flex-auto">
-            <Select
-              {...register("gender",)}
-              label="Gender"
-              onChange={(ev) => setForm((prev: any) => ({ ...prev, gender: ev }))}
-            >
-              <Option value="Male">Male</Option>
-              <Option value="Female">Female</Option>
-            </Select>
-          </div>
-          <div className="flex-auto">
+          <div className="my-2">
             <Input
               {...register("document", {
                 required: "This field is required."
@@ -180,6 +155,31 @@ function Request() {
               name="document"
               render={({ message }) => <p className="error">{message}</p>}
             />
+          </div>
+        </div>
+        <div className="w-full flex flex-row my-3 gap-x-5">
+          <div className="flex-auto">
+            <Input
+              {...register("age", { valueAsNumber: true, required: "This field is required." })}
+              type="number"
+              label="Age"
+              onChange={(ev) => setForm((prev: any) => ({ ...prev, age: ev.target.value }))}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="age"
+              render={({ message }) => <p className="error">{message}</p>}
+            />
+          </div>
+          <div className="flex-auto">
+            <Select
+              {...register("gender",)}
+              label="Gender"
+              onChange={(ev) => setForm((prev: any) => ({ ...prev, gender: ev }))}
+            >
+              <Option value="Male">Male</Option>
+              <Option value="Female">Female</Option>
+            </Select>
           </div>
           <div className="flex-auto">
             <Input
@@ -197,8 +197,8 @@ function Request() {
             />
           </div>
         </div>
-        <div className="w-1/2 flex flex-row my-3 gap-x-5">
-          <div className="flex-auto">
+        <div className="columns justify-start">
+          <div className="my-2">
             <Input
               {...register("sms", {
                 required: "This field is required.",

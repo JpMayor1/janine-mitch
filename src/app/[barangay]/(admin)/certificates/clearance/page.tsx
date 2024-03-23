@@ -60,7 +60,7 @@ function Clearance() {
                 <div>
                   This is to certify that Mr./Ms. {form.name}, a resident of {form.barangay} for {form.count} years/months, is a qualified availee of RA 11261 or the First Time Jobseekers Act of 2019.
                   <br /><br />
-                  I further certify that the holder/bearer was informed of his/her rights, including the duties and responsibilities accorded by RA 11261 through the Oath of Undertaking he/she has signed and executd in the preses of our Barangay Official.
+                  I further certify that the holder/bearer was informed of his/her rights, including the duties and responsibilities accorded by RA 11261 through the Oath of Undertaking he/she has signed and executed in the presence of our Barangay Official.
                   <br /><br />
                   Signed this {form.day} day of {form.month}, {form.year} in the City/Municipality of {form.municipality}
                   <br /><br />
@@ -94,15 +94,15 @@ function Clearance() {
   )
 
   return (
-    <div className="w-full h-full p-10 flex flex-col justify-center items-center rounded-xl shadow-lg bg-white">
-      <div className="w-1/2 text-center text-3xl my-5 font-bold">
+    <div className="w-full h-full p-10 flex flex-col rounded-xl shadow-lg bg-white">
+      <div className="w-full text-center text-3xl my-5 font-bold">
         BARANGAY CLEARANCE
         <div className="relative">
         </div>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="w-1/2 flex flex-row my-3 gap-x-5">
-          <div className="flex-auto">
+        <div className="columns justify-start">
+          <div className="my-2">
             <Input
               {...register("name", {
                 required: "This field is required."
@@ -118,7 +118,7 @@ function Clearance() {
               render={({ message }) => <p className="error">{message}</p>}
             />
           </div>
-          <div className="flex-auto">
+          <div className="my-2">
             <Input
               {...register("barangay", {
                 required: "This field is required."
@@ -134,7 +134,23 @@ function Clearance() {
               render={({ message }) => <p className="error">{message}</p>}
             />
           </div>
-          <div className="flex-auto">
+          <div className="my-2">
+            <Input
+              {...register("municipality", {
+                required: "This field is required."
+              })}
+              label="Municipality"
+              onChange={(ev) =>
+                setForm((prev: any) => ({ ...prev, municipality: ev.target.value }))
+              }
+            />
+            <ErrorMessage
+              errors={errors}
+              name="municipality"
+              render={({ message }) => <p className="error">{message}</p>}
+            />
+          </div>
+          <div className="my-2">
             <Input
               {...register("count", { valueAsNumber: true, required: "This field is required." })}
               type="number"
@@ -149,8 +165,48 @@ function Clearance() {
               render={({ message }) => <p className="error">{message}</p>}
             />
           </div>
+          <div className="my-2">
+            <Input
+              {...register("sms", {
+                required: "This field is required.",
+                pattern: {
+                  value: /^([+]\d{2})?\d{10}$/,
+                  message: "Invalid mobile number format. Must be in format of (+63XXXXXXXXXX)"
+                }
+              })}
+              label="Mobile Number"
+              onChange={(ev) => setForm((prev: any) => ({ ...prev, sms: ev.target.value }))}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="sms"
+              render={({ message }) => <p className="error">{message}</p>}
+            />
+          </div>
+          <div className="my-2">
+            <div className="flex-auto">
+              <Input
+                {...register("validity", {
+                  required: "This field is required."
+                })}
+                type="date"
+                label="Valid Until"
+                onChange={(ev) =>
+                  setForm((prev: any) => ({
+                    ...prev,
+                    validity: dayjs(ev.target.value).format("MM/DD/YYYY"),
+                  }))
+                }
+              />
+              <ErrorMessage
+                errors={errors}
+                name="validity"
+                render={({ message }) => <p className="error">{message}</p>}
+              />
+            </div>
+          </div>
         </div>
-        <div className="w-1/2 flex flex-row my-3 gap-x-5">
+        <div className="w-full flex flex-row my-3 gap-x-5">
           <div className="flex-auto">
             <Input
               {...register("day",
@@ -189,46 +245,7 @@ function Clearance() {
             />
           </div>
           <div className="flex-auto">
-            <Input
-              {...register("sms", {
-                required: "This field is required.",
-                pattern: {
-                  value: /^([+]\d{2})?\d{10}$/,
-                  message: "Invalid mobile number format. Must be in format of (+63XXXXXXXXXX)"
-                }
-              })}
-              label="Mobile Number"
-              onChange={(ev) => setForm((prev: any) => ({ ...prev, sms: ev.target.value }))}
-            />
-            <ErrorMessage
-              errors={errors}
-              name="sms"
-              render={({ message }) => <p className="error">{message}</p>}
-            />
-          </div>
-        </div>
-        <div className="w-1/2 flex flex-row my-3 gap-x-5">
-          <div className="flex-auto">
-            <Input
-              {...register("validity", {
-                required: "This field is required."
-              })}
-              type="date"
-              label="Valid Until"
-              onChange={(ev) =>
-                setForm((prev: any) => ({
-                  ...prev,
-                  validity: dayjs(ev.target.value).format("MM/DD/YYYY"),
-                }))
-              }
-            />
-            <ErrorMessage
-              errors={errors}
-              name="validity"
-              render={({ message }) => <p className="error">{message}</p>}
-            />
-          </div>
-          <div className="flex-auto">
+
             <Input
               {...register("year", {
                 required: "This field is required."

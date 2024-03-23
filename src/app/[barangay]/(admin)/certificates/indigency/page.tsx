@@ -126,13 +126,13 @@ function Indigency() {
 
 
   return (
-    <div className="w-full h-full p-10 flex flex-col justify-center items-center rounded-xl shadow-lg bg-white">
-      <div className="w-1/2 text-center text-3xl my-5 font-bold">
+    <div className="w-full h-full p-10 flex flex-col rounded-xl shadow-lg bg-white">
+      <div className="w-full text-center text-3xl my-5 font-bold">
         BARANGAY INDIGENCY
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="w-1/2 flex flex-row my-3 gap-x-5">
-          <div className="flex-auto">
+        <div className="columns justify-start">
+          <div className="my-2">
             <Input
               {...register("name", {
                 required: "This field is required."
@@ -146,7 +146,7 @@ function Indigency() {
               render={({ message }) => <p className="error">{message}</p>}
             />
           </div>
-          <div className="flex-auto">
+          <div className="my-2">
             <Input
               {...register("address", {
                 required: "This field is required."
@@ -160,7 +160,7 @@ function Indigency() {
               render={({ message }) => <p className="error">{message}</p>}
             />
           </div>
-          <div className="flex-auto">
+          <div className="my-2">
             <Input
               {...register("sms", {
                 required: "This field is required.",
@@ -179,7 +179,7 @@ function Indigency() {
             />
           </div>
         </div>
-        <div className="w-1/2 flex flex-row my-3 gap-x-5">
+        <div className="w-full flex flex-row my-3 gap-x-5">
           <div className="flex-auto">
             <Input
               {...register("day",
@@ -231,8 +231,8 @@ function Indigency() {
             />
           </div>
         </div>
-        <div className="w-1/2 flex flex-row my-3 gap-x-5">
-          <div className="flex-auto">
+        <div className="columns">
+          <div className="my-2">
             <Input
               {...register("CTCNumber", {
                 required: "This field is required."
@@ -247,7 +247,7 @@ function Indigency() {
               render={({ message }) => <p className="error">{message}</p>}
             />
           </div>
-          <div className="flex-auto">
+          <div className="my-2">
             <Input
               {...register("date2", {
                 required: "This field is required."
@@ -263,7 +263,7 @@ function Indigency() {
               render={({ message }) => <p className="error">{message}</p>}
             />
           </div>
-          <div className="flex-auto">
+          <div className="my-2">
             <Input
               {...register("place", {
                 required: "This field is required."
@@ -279,50 +279,48 @@ function Indigency() {
             />
           </div>
         </div>
-        <div className="w-1/2 flex flex-row my-3 gap-x-5">
-          <div className="flex-auto">
-            <Input
-              {...register("amount", { valueAsNumber: true, required: "This field is required." })}
-              type="number"
-              label="Amount Paid"
-              onChange={(ev) => setForm((prev: any) => ({ ...prev, amount: ev.target.value }))}
-            />
-            <ErrorMessage
-              errors={errors}
-              name="amount"
-              render={({ message }) => <p className="error">{message}</p>}
-            />
-          </div>
-          <div className="flex-auto">
-            <Input
-              {...register("ORNumber", {
-                required: "This field is required."
-              })}
-              type="text"
-              label="OR No."
-              onChange={(ev) => setForm((prev: any) => ({ ...prev, ORNumber: ev.target.value }))}
-            />
-            <ErrorMessage
-              errors={errors}
-              name="ORNumber"
-              render={({ message }) => <p className="error">{message}</p>}
-            />
-          </div>
-          <div className="flex-auto">
-            <Input
-              {...register("date3", {
-                required: "This field is required."
-              })}
-              type="date"
-              label="Date Issued"
-              onChange={(ev) => setForm((prev: any) => ({ ...prev, date3: dayjs(ev.target.value).format("MMMM/D/YYYY") }))}
-            />
-            <ErrorMessage
-              errors={errors}
-              name="date3"
-              render={({ message }) => <p className="error">{message}</p>}
-            />
-          </div>
+        <div className="my-2">
+          <Input
+            {...register("amount", { valueAsNumber: true, required: "This field is required." })}
+            type="number"
+            label="Amount Paid"
+            onChange={(ev) => setForm((prev: any) => ({ ...prev, amount: ev.target.value }))}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="amount"
+            render={({ message }) => <p className="error">{message}</p>}
+          />
+        </div>
+        <div className="my-2">
+          <Input
+            {...register("ORNumber", {
+              required: "This field is required."
+            })}
+            type="text"
+            label="OR No."
+            onChange={(ev) => setForm((prev: any) => ({ ...prev, ORNumber: ev.target.value }))}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="ORNumber"
+            render={({ message }) => <p className="error">{message}</p>}
+          />
+        </div>
+        <div className="my-2">
+          <Input
+            {...register("date3", {
+              required: "This field is required."
+            })}
+            type="date"
+            label="Date Issued"
+            onChange={(ev) => setForm((prev: any) => ({ ...prev, date3: dayjs(ev.target.value).format("MMMM/D/YYYY") }))}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="date3"
+            render={({ message }) => <p className="error">{message}</p>}
+          />
         </div>
         <div className="w-1/2 my-3 text-end">
           <Button type="submit">
