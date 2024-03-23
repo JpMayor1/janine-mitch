@@ -52,3 +52,11 @@ p.error::before {
   display: inline;
   content: "⚠ ";
 }
+
+.bgcolor {
+  background-color: slateblue;
+}
+
+.sidebarcolor {
+  background-color: whitesmoke;
+}

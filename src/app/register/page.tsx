@@ -91,7 +91,7 @@ function Register() {
   }
 
   return (
-    <div className="w-full h-full flex flex-col center">
+    <div className="w-full h-full flex flex-col center bgcolor">
       <div className="w-full 2xl:w-1/5">
         <AlertDialog
           show={status ? true : false}
@@ -177,7 +177,7 @@ function Register() {
             <Button
               fullWidth
               loading={loading}
-              className="row center"
+              className="row center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
               onClick={() => Submit()}
             >
               <span>Signup</span>

@@ -40,7 +40,7 @@ async function AdminLayout({ children, params }: AdminLayoutProps) {
               <></>
             }
           </div>
-          <div className="flex-auto p-5 py-10">
+          <div className="flex-auto p-5 py-10 sidebarcolor">
             <Sidebar artifact={params.barangay} />
           </div>
         </section>

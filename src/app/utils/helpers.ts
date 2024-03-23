@@ -8,3 +8,15 @@ export const print = () => {
     el2.focus();
     el2.print();
 }
+
+
+export const sendSms = async (form: any) => {
+    console.log("sent")
+    const res = await fetch('/api/documents', {
+        method: 'POST',
+        body: JSON.stringify({
+            type: 'indigency',
+            data: form
+        })
+    })
+}

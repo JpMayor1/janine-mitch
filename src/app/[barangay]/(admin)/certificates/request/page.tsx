@@ -6,7 +6,7 @@ import { useState } from "react"
 import { useForm, SubmitHandler, } from "react-hook-form"
 import { ErrorMessage } from "@hookform/error-message"
 import Image from "next/image";
-import { print } from '../../../../utils/helpers'
+import { print, sendSms } from '../../../../utils/helpers'
 
 const barangay_logo = require("./../../../../../../public/logos/barangay_logo.png");
 const municipality_logo = require("./../../../../../../public/logos/municipality_logo.png");
@@ -22,7 +22,12 @@ function Request() {
   } = useForm<any>({
     criteriaMode: "all",
   })
-  const onSubmit: SubmitHandler<any> = (data) => print()
+
+  const onSubmit: SubmitHandler<any> = (data) => {
+    sendSms(form);
+    print();
+  }
+
 
   const Document = () => (
     <>
@@ -188,6 +193,26 @@ function Request() {
             <ErrorMessage
               errors={errors}
               name="release"
+              render={({ message }) => <p className="error">{message}</p>}
+            />
+          </div>
+        </div>
+        <div className="w-1/2 flex flex-row my-3 gap-x-5">
+          <div className="flex-auto">
+            <Input
+              {...register("sms", {
+                required: "This field is required.",
+                pattern: {
+                  value: /^([+]\d{2})?\d{10}$/,
+                  message: "Invalid mobile number format. Must be in format of (+63XXXXXXXXXX)"
+                }
+              })}
+              label="Mobile Number"
+              onChange={(ev) => setForm((prev: any) => ({ ...prev, sms: ev.target.value }))}
+            />
+            <ErrorMessage
+              errors={errors}
+              name="sms"
               render={({ message }) => <p className="error">{message}</p>}
             />
           </div>

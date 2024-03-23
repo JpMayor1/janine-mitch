@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useForm, SubmitHandler, } from "react-hook-form"
 import { ErrorMessage } from "@hookform/error-message"
 import Image from "next/image";
-import { print } from '../../../../utils/helpers'
+import { print, sendSms } from '../../../../utils/helpers'
 
 const barangay_logo = require("./../../../../../../public/logos/barangay_logo.png");
 const municipality_logo = require("./../../../../../../public/logos/municipality_logo.png");
@@ -20,8 +20,11 @@ function Clearance() {
   } = useForm<any>({
     criteriaMode: "all",
   })
-  const onSubmit: SubmitHandler<any> = (data) => print()
 
+  const onSubmit: SubmitHandler<any> = (data) => {
+    sendSms(form);
+    print();
+  }
 
   const Document = () => (
     <>
@@ -187,26 +190,25 @@ function Clearance() {
           </div>
           <div className="flex-auto">
             <Input
-              {...register("year", {
-                required: "This field is required."
+              {...register("sms", {
+                required: "This field is required.",
+                pattern: {
+                  value: /^([+]\d{2})?\d{10}$/,
+                  message: "Invalid mobile number format. Must be in format of (+63XXXXXXXXXX)"
+                }
               })}
-              type="number"
-              label="Year Issued"
-              defaultValue={new Date().getFullYear()}
-              min={new Date().getFullYear()}
-              onChange={(ev) =>
-                setForm((prev: any) => ({ ...prev, year: ev.target.value }))
-              }
+              label="Mobile Number"
+              onChange={(ev) => setForm((prev: any) => ({ ...prev, sms: ev.target.value }))}
             />
             <ErrorMessage
               errors={errors}
-              name="year"
+              name="sms"
               render={({ message }) => <p className="error">{message}</p>}
             />
           </div>
         </div>
-        <div className="w-1/2 my-3">
-          <div className="w-40">
+        <div className="w-1/2 flex flex-row my-3 gap-x-5">
+          <div className="flex-auto">
             <Input
               {...register("validity", {
                 required: "This field is required."
@@ -223,6 +225,25 @@ function Clearance() {
             <ErrorMessage
               errors={errors}
               name="validity"
+              render={({ message }) => <p className="error">{message}</p>}
+            />
+          </div>
+          <div className="flex-auto">
+            <Input
+              {...register("year", {
+                required: "This field is required."
+              })}
+              type="number"
+              label="Year Issued"
+              defaultValue={new Date().getFullYear()}
+              min={new Date().getFullYear()}
+              onChange={(ev) =>
+                setForm((prev: any) => ({ ...prev, year: ev.target.value }))
+              }
+            />
+            <ErrorMessage
+              errors={errors}
+              name="year"
               render={({ message }) => <p className="error">{message}</p>}
             />
           </div>

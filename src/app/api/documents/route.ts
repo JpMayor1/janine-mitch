@@ -2,57 +2,28 @@ import { TemplateHandler } from "easy-template-x";
 import { readFileSync, writeFileSync } from "fs";
 import { NextResponse } from "next/server";
 import { join } from "path";
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioPhone = process.env.TWILIO_PHONE_NUMBER;
+const client = require('twilio')(accountSid, authToken);
 
-export async function POST (request: Request) {
-  const form = await request.json();
+export async function POST(request: Request) {
+  const form = await request.json()
+  try {
+    console.log("payload:", form)
+    let messageRes = "";
+    client.messages
+      .create({
+        body: 'Magandang Araw Kabaranggay! \nAng iyong dokumento ay handa na at pwede mo nang makuha sa ating baranggay hall. Hanapin si Maria Dennise Moreno para makuha Ang iyong dokumento.',
+        from: twilioPhone,
+        to: form.data.sms
+      })
+      .then(message => messageRes = message);
+    console.log("done")
+    return NextResponse.json({ success: messageRes }, { status: 200 });
 
-  switch (form.type) {
-    case 'indigency':
-      try {
-        const indigency = readFileSync(join(__dirname, '../../../../../public', 'indigency.docx'));
-
-        const handler = new TemplateHandler();
-        const doc = await handler.process(indigency, form.data);
-        
-        writeFileSync(join(__dirname, '../../../../../public', 'out-indigency.docx'), doc);
-
-        return NextResponse.json({ buffer: doc }, { status: 200 });
-        
-      } catch (error) {
-        console.log(error);
-        return NextResponse.json({}, { status: 500 });
-      }
-    
-    case 'clearance':
-      try {
-        const clearance = readFileSync(join(__dirname, '../../../../../public', 'clearance.docx'));
-  
-        const handler = new TemplateHandler();
-        const doc = await handler.process(clearance, form.data);
-          
-        writeFileSync(join(__dirname, '../../../../../public', 'out-clearance.docx'), doc);
-  
-        return NextResponse.json({ buffer: doc }, { status: 200 });
-          
-      } catch (error) {
-        console.log(error);
-        return NextResponse.json({}, { status: 500 });
-      }
-
-    case 'request':
-        try {
-          const request = readFileSync(join(__dirname, '../../../../../public', 'request.docx'));
-    
-          const handler = new TemplateHandler();
-          const doc = await handler.process(request, form.data);
-            
-          writeFileSync(join(__dirname, '../../../../../public', 'out-request.docx'), doc);
-    
-          return NextResponse.json({ buffer: doc }, { status: 200 });
-            
-        } catch (error) {
-          console.log(error);
-          return NextResponse.json({}, { status: 500 });
-        }
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({}, { status: 500 });
   }
 }
