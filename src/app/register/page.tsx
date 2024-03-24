@@ -10,6 +10,8 @@ import { User } from "@/lib/types"
 import { useUser } from "@/lib/globalStore"
 import { useRouter } from "next/navigation"
 import AlertDialog from "@/components/AlertDialog"
+import Image from "next/image";
+const landing_logo = require('./../../../public/logos/landing_logo.png');
 
 function Register() {
   const user = useUser()
@@ -100,6 +102,9 @@ function Register() {
           color={status !== null ? status.state ? 'green' : 'red' : undefined}
           message={status ? status.message : undefined}
         />
+      </div>
+      <div className="w-full 2xl:w-1/5 flex flex-col center">
+        <Image style={{ maxHeight: "17rem", maxWidth: "17rem" }} src={landing_logo} alt={""} />
       </div>
       <div className="w-full 2xl:w-1/5 p-8 border rounded-lg shadow-sm bg-gray-50 text-blue-gray-500">
         <div className="w-full my-5">

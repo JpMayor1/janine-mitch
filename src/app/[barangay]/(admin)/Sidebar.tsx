@@ -34,14 +34,14 @@ function Sidebar({ artifact }: { artifact: string }) {
               Dashboard
             </ListItem>
           </Link>
-          {/* <Link href={`/${artifact}/dashboard`}>
+          <Link href={`/${artifact}/health`}>
             <ListItem>
               <ListItemPrefix>
                 <GiHealthNormal />
               </ListItemPrefix>
-              Healthcare
+              Health Certificate
             </ListItem>
-          </Link> */}
+          </Link>
           <Link href={`/${artifact}/officials`}>
             <ListItem>
               <ListItemPrefix>

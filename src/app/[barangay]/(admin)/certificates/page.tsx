@@ -4,7 +4,7 @@ import Link from "next/link"
 function Certificates({ params }: any) {
   return (
     <div className="w-full h-full row center gap-x-5">
-      {/* <Link
+      <Link
         className="w-auto p-5 rounded-xl bg-red-400 text-white"
         href={`/${params.barangay}/certificates/ID`}
       >
@@ -15,7 +15,7 @@ function Certificates({ params }: any) {
           src={'/public/indigency.png'}
         />
         Barangay ID
-      </Link> */}
+      </Link>
 
       <Link
         className="w-auto p-5 rounded-xl bg-red-400 text-white"
