@@ -81,7 +81,7 @@ function Health() {
                         <Row>
                             <SplitRow
                                 item1={<>Childs name: {form.childName}</>}
-                                item2={<>Mother name: {form.motherName}</>}
+                                item2={<>Mother's name: {form.motherName}</>}
                                 item3={<>Childs name: {form.healthCenter}</>}
                             />
                         </Row>
@@ -89,7 +89,7 @@ function Health() {
                         <Row>
                             <SplitRow
                                 item1={<>Date of Birth: {form.date1}</>}
-                                item2={<>Father name: {form.fatherName}</>}
+                                item2={<>Father's name: {form.fatherName}</>}
                                 item3={<>Barangay: {form.barangay}</>}
                             />
                         </Row>
