@@ -22,7 +22,7 @@ function Clearance() {
     });
 
     const onSubmit: SubmitHandler<any> = async () => {
-        const res = await sendSms(form);
+        sendSms(form);
         print();
     };
 
