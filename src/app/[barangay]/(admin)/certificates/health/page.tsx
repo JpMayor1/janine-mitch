@@ -17,9 +17,11 @@ function Health() {
         criteriaMode: "all",
     })
 
-    const onSubmit: SubmitHandler<any> = (data) => {
-        sendSms(form);
-        print();
+    const onSubmit: SubmitHandler<any> = async () => {
+      const res = await sendSms(form);
+      if (res.status === 200) {
+          print();
+      }
     }
 
     const Row = (props: any) => (
