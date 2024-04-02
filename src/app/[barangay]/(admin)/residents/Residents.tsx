@@ -74,7 +74,7 @@ function Residents(props: ResidentsType) {
         }
 
         setData([...RESIDENTS]);
-    }, [debounced, RESIDENTS, data]);
+    }, [debounced]);
 
     return (
         <div className="w-full">

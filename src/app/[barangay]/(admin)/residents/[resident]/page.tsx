@@ -47,7 +47,7 @@ function ResidentForm({ params }: ResidentProps) {
                 setLoadingForm(false);
             });
         }
-    }, [form, isCreate, params.resident, organizationID]);
+    }, []);
 
     const [loading, setLoading] = useState<boolean>(false);
     const [status, setStatus] = useState<{
