@@ -1,12 +1,6 @@
 "use client";
 
-import {
-    Input,
-    Select,
-    Option,
-    Button,
-    Tooltip,
-} from "@material-tailwind/react";
+import { Input, Button, Tooltip } from "@material-tailwind/react";
 import Image from "next/image";
 import { useState } from "react";
 import { BsFillPrinterFill } from "react-icons/bs";
@@ -29,7 +23,7 @@ function ID(props: IDProps) {
     const [editMode, setEditMode] = useState(false);
 
     return (
-        <div className="w-full h-full flex flex-col p-10 rounded-xl shadow-lg bg-white">
+        <div className="w-full h-full flex flex-col p-10">
             <div className="w-auto fixed top-10 right-5 z-50">
                 <div className="flex flex-col gap-y-5">
                     <Tooltip content="Edit">
@@ -61,11 +55,12 @@ function ID(props: IDProps) {
                 </div>
             </div>
             <div className="flex-auto">
-                <div className="w-full h-full center row printing-view flex gap-3">
-                    <div className="w-auto h-auto relative">
+                <div className="w-full h-full flex flex-col gap-8 center printing-view">
+                    {/* Front */}
+                    <div className="w-[800px] h-auto relative bg-red-400">
                         <div className="absolute z-20">
-                            <div className="w-[230px] absolute top-[120px] left-[190px]">
-                                <div className="flex flex-row items-center justify-center gap-1 text-center text-sm">
+                            <div className="w-[410px] absolute top-[200px] left-[320px]">
+                                <div className="flex flex-row items-center justify-center gap-1 text-center text-3xl">
                                     <div>{form.firstname}</div>
                                     <div>{form.middlename}</div>
                                     <div>{form.lastname}</div>
@@ -73,52 +68,42 @@ function ID(props: IDProps) {
                             </div>
                         </div>
                         <Image
-                            width={450}
+                            width={800}
                             height={550}
                             alt="id_front"
                             src={require("/public/id_front.jpg")}
                         />
                     </div>
 
-                    <div className="w-auto h-auto relative">
-                        <div className="absolute z-20 w-[70%] top-[14px] left-[80px]">
-                            <div className="text-[11px] ml-6">{form.valid}</div>
-                            <div className="text-[11px] ml-14">
-                                {form.ownerContact}
-                            </div>
-                            <div className="text-[11px] ml-14">
-                                {form.birthdate}
-                            </div>
-                            <div className="text-[11px] ml-6">
-                                {form.address}
-                            </div>
+                    {/* Back */}
+                    <div className="w-[800px] h-auto relative">
+                        <div className="absolute z-20 w-[70%] top-[20px] left-[250px] text-xl">
+                            <div>{form.valid}</div>
+                            <div className="mt-1">{form.ownerContact}</div>
+                            <div>{form.birthdate}</div>
+                            <div className="mt-2">{form.address}</div>
                         </div>
-                        <div className="absolute z-20 w-[70%] top-[113px] left-[70px]">
-                            <div className="text-[11px] ml-8 mb-1">
-                                {form.emergencyPerson}
-                            </div>
-                            <div className="text-[11px] ml-20">
-                                {form.emergencyContact}
-                            </div>
-                            <div className="text-[11px] ml-12">
-                                {form.emergencyAddress}
-                            </div>
+
+                        <div className="absolute z-20 w-[70%] top-[195px] left-[250px] text-xl">
+                            <div>{form.emergencyPerson}</div>
+                            <div className="mt-1">{form.emergencyContact}</div>
+                            <div className="mt-2">{form.emergencyAddress}</div>
                         </div>
-                        <div className="absolute z-20 w-[340px] bottom-[48px] left-[45px] flex items-center justify-between">
+                        <div className="absolute z-20 w-[570px] bottom-[85px] left-[75px] flex items-center justify-between  text-xl">
                             <div className="w-[50%]">
-                                <div className="text-[11px] ml-2">
+                                <div className="">
                                     {form.punongBarangay}
                                 </div>
                             </div>
                             <div className="w-[50%]">
-                                <div className="text-[11px]">
+                                <div className="">
                                     {form.validityOfficer}
                                 </div>
                             </div>
                         </div>
 
                         <Image
-                            width={450}
+                            width={800}
                             height={550}
                             alt="id_front"
                             src={require("/public/id_back.jpg")}
@@ -127,7 +112,7 @@ function ID(props: IDProps) {
                 </div>
             </div>
 
-            {editMode ? (
+            {editMode && (
                 <div className="w-full row gap-x-2">
                     <div className="flex-auto">
                         <div className={row}>
@@ -308,8 +293,6 @@ function ID(props: IDProps) {
                         </div>
                     </div>
                 </div>
-            ) : (
-                <></>
             )}
         </div>
     );
