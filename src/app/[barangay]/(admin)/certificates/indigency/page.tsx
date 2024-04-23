@@ -36,7 +36,7 @@ function Indigency() {
     });
 
     const onSubmit: SubmitHandler<any> = () => {
-        // sendSms(form);
+        sendSms(form);
         print();
     };
 

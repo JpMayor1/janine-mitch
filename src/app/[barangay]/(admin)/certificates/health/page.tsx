@@ -18,7 +18,7 @@ function Health() {
     });
 
     const onSubmit: SubmitHandler<any> = async () => {
-        // sendSms(form);
+        sendSms(form);
         print();
     };
 
