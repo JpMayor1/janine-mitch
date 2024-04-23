@@ -36,7 +36,7 @@ function Indigency() {
     });
 
     const onSubmit: SubmitHandler<any> = () => {
-        sendSms(form);
+        // sendSms(form);
         print();
     };
 
@@ -100,9 +100,9 @@ function Indigency() {
                                 This is to certify that {form.name}, residing at{" "}
                                 {form.address} belongs to indigent citizens of
                                 this barangay. <br />
-                                Issued this {form.day} of {form.month},{" "}
+                                Issued this {form.date} of {form.month},{" "}
                                 {form.year} upon request of the interested party
-                                for Educational Assistance Requirement.
+                                for {form.purpose} Requirement.
                             </div>
                             <div style={{ flex: "20%" }} />
                         </div>
@@ -223,27 +223,48 @@ function Indigency() {
                             )}
                         />
                     </div>
+                    <div className="my-2">
+                        <Input
+                            {...register("purpose", {
+                                required: "This field is required.",
+                            })}
+                            label="Purpose"
+                            onChange={(ev) =>
+                                setForm((prev: any) => ({
+                                    ...prev,
+                                    purpose: ev.target.value,
+                                }))
+                            }
+                        />
+                        <ErrorMessage
+                            errors={errors}
+                            name="purpose"
+                            render={({ message }) => (
+                                <p className="error">{message}</p>
+                            )}
+                        />
+                    </div>
                 </div>
                 <div className="w-full flex flex-row my-3 gap-x-5">
                     <div className="flex-auto">
                         <Input
-                            {...register("day", {
+                            {...register("date", {
                                 min: {
                                     value: 0,
-                                    message: "Must be a valid day",
+                                    message: "Must be a valid date",
                                 },
                                 max: {
                                     value: 31,
-                                    message: "Must be a valid day",
+                                    message: "Must be a valid date",
                                 },
                                 required: "This field is required.",
                             })}
                             type="number"
-                            label="Day Issued"
+                            label="Date Issued"
                             onChange={(ev) =>
                                 setForm((prev: any) => ({
                                     ...prev,
-                                    day: `${ev.target.value}${nthNumber(
+                                    date: `${ev.target.value}${nthNumber(
                                         Number(ev.target.value)
                                     )}`,
                                 }))
@@ -251,7 +272,7 @@ function Indigency() {
                         />
                         <ErrorMessage
                             errors={errors}
-                            name="day"
+                            name="date"
                             render={({ message }) => (
                                 <p className="error">{message}</p>
                             )}

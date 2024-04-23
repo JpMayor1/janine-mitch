@@ -18,7 +18,7 @@ function Health() {
     });
 
     const onSubmit: SubmitHandler<any> = async () => {
-        sendSms(form);
+        // sendSms(form);
         print();
     };
 
@@ -45,17 +45,30 @@ function Health() {
     );
 
     const GridRow = ({ item1, item2, item3, item4 }: any) => (
-        <div style={{ display: "flex", border: "solid", marginBottom: "-5px" }}>
-            <div style={{ flex: "20%", border: "solid", padding: "0.5rem" }}>
+        <div
+            style={{
+                display: "flex",
+                marginBottom: "-5px",
+            }}
+        >
+            <div
+                style={{ flex: "20%", border: "1px solid", padding: "0.5rem" }}
+            >
                 {item1}
             </div>
-            <div style={{ flex: "25%", border: "solid", padding: "0.5rem" }}>
+            <div
+                style={{ flex: "25%", border: "1px solid", padding: "0.5rem" }}
+            >
                 {item2}
             </div>
-            <div style={{ flex: "20%", border: "solid", padding: "0.5rem" }}>
+            <div
+                style={{ flex: "20%", border: "1px solid", padding: "0.5rem" }}
+            >
                 {item3}
             </div>
-            <div style={{ flex: "30%", border: "solid", padding: "0.5rem" }}>
+            <div
+                style={{ flex: "30%", border: "1px solid", padding: "0.5rem" }}
+            >
                 {item4}
             </div>
         </div>
@@ -80,16 +93,20 @@ function Health() {
                         <br />
                         <Row>
                             <SplitRow
-                                item1={<>Childs name: {form.childName}</>}
-                                item2={<>Mother's name: {form.motherName}</>}
-                                item3={<>Childs name: {form.healthCenter}</>}
+                                item1={
+                                    <>{`Mother's name: ${form.motherName}`}</>
+                                }
+                                item2={
+                                    <>{`Father's name: ${form.fatherName}`}</>
+                                }
+                                item3={<>Childs name: {form.childName}</>}
                             />
                         </Row>
                         <br />
                         <Row>
                             <SplitRow
                                 item1={<>Date of Birth: {form.date1}</>}
-                                item2={<>Father's name: {form.fatherName}</>}
+                                item2={<>Health Center: {form.healthCenter}</>}
                                 item3={<>Barangay: {form.barangay}</>}
                             />
                         </Row>
