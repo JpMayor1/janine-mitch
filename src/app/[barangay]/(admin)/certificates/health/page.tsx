@@ -24,23 +24,47 @@ function Health() {
 
     const Row = (props: any) => (
         <div style={{ display: "flex" }}>
-            <div style={{ flex: "5%", textAlign: "center" }} />
-            <div style={{ flex: "90%" }}>{props.children}</div>
-            <div style={{ flex: "5%", textAlign: "center" }} />
+            <div style={{ flex: "100%" }}>{props.children}</div>
         </div>
     );
 
-    const SplitRow = ({ item1, item2, item3 }: any) => (
+    const SplitRow = ({ title1, item1 }: any) => (
         <div style={{ display: "flex" }}>
-            <div style={{ flex: "5%", textAlign: "center" }} />
-            <div style={{ flex: "90%" }}>
+            <div style={{ flex: "100%" }}>
                 <div style={{ display: "flex" }}>
-                    <div style={{ flex: "33%" }}>{item1}</div>
-                    <div style={{ flex: "33%" }}>{item2}</div>
-                    <div style={{ flex: "33%" }}>{item3}</div>
+                    <div
+                        style={{
+                            width: "fit-content",
+                        }}
+                    >
+                        <p style={{ borderBottom: "1px solid" }}>
+                            <span style={{ fontWeight: "bold" }}>{title1}</span>{" "}
+                            {item1}
+                        </p>
+                    </div>
                 </div>
             </div>
-            <div style={{ flex: "5%", textAlign: "center" }} />
+        </div>
+    );
+
+    const SplitRow2 = ({ title1, item1, title2, item2 }: any) => (
+        <div style={{ display: "flex" }}>
+            <div style={{ flex: "100%" }}>
+                <div style={{ display: "flex", gap: 10 }}>
+                    <div style={{ flex: "50%" }}>
+                        <p style={{ borderBottom: "1px solid" }}>
+                            <span style={{ fontWeight: "bold" }}>{title1}</span>{" "}
+                            {item1}
+                        </p>
+                    </div>
+                    <div style={{ flex: "50%" }}>
+                        <p style={{ borderBottom: "1px solid" }}>
+                            <span style={{ fontWeight: "bold" }}>{title2}</span>{" "}
+                            {item2}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 
@@ -92,42 +116,64 @@ function Health() {
                         </Row>
                         <br />
                         <Row>
-                            <SplitRow
-                                item1={
-                                    <>{`Mother's name: ${form.motherName}`}</>
-                                }
-                                item2={
-                                    <>{`Father's name: ${form.fatherName}`}</>
-                                }
-                                item3={<>Childs name: {form.childName}</>}
+                            <SplitRow2
+                                title1={"Childs Name: "}
+                                item1={form.childName}
+                                title2={"Mother's Name: "}
+                                item2={form.motherName}
                             />
                         </Row>
-                        <br />
+
+                        <Row>
+                            <SplitRow2
+                                title1={"Date of Birth: "}
+                                item1={form.date1}
+                                title2={"Father's Name: "}
+                                item2={form.fatherName}
+                            />
+                        </Row>
+
+                        <Row>
+                            <SplitRow2
+                                title1={"Place of Birth: "}
+                                item1={form.placeOfBirth}
+                                title2={"Sex: "}
+                                item2={form.gender}
+                            />
+                        </Row>
+
+                        <Row>
+                            <SplitRow2
+                                title1={"Birth Weight: "}
+                                item1={form.weight}
+                                title2={"Birth Height: "}
+                                item2={form.height}
+                            />
+                        </Row>
+
+                        <Row>
+                            <SplitRow2
+                                title1={"Barangay: "}
+                                item1={form.barangay}
+                                title2={"Family No.: "}
+                                item2={form.familyNo}
+                            />
+                        </Row>
+
                         <Row>
                             <SplitRow
-                                item1={<>Date of Birth: {form.date1}</>}
-                                item2={<>Health Center: {form.healthCenter}</>}
-                                item3={<>Barangay: {form.barangay}</>}
+                                title1={"Address: "}
+                                item1={form.address}
                             />
                         </Row>
-                        <br />
+
                         <Row>
                             <SplitRow
-                                item1={<>Place of Birth: {form.placeOfBirth}</>}
-                                item2={<>Birth Height: {form.height}</>}
-                                item3={<>Family No.: {form.familyNo}</>}
+                                title1={"Health Center: "}
+                                item1={form.healthCenter}
                             />
                         </Row>
-                        <br />
-                        <Row>
-                            <SplitRow
-                                item1={<>Address: {form.address}</>}
-                                item2={<>Birth Weight: {form.weight}</>}
-                                item3={<>Sex: {form.gender} </>}
-                            />
-                        </Row>
-                        <br />
-                        <br />
+
                         <GridRow
                             item1={<>Bakuna</>}
                             item2={<>Doses</>}

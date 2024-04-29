@@ -6,8 +6,6 @@ import { useState } from "react";
 import { BsFillPrinterFill } from "react-icons/bs";
 import { FaPen } from "react-icons/fa";
 
-type IDProps = {};
-
 // source: https://stackoverflow.com/questions/4060004/calculate-age-given-the-birth-date-in-the-format-yyyymmdd
 function getAge(birthday: Date) {
     var ageDifMs = Date.now() - birthday.getTime();
@@ -17,7 +15,7 @@ function getAge(birthday: Date) {
 
 const row = "w-full row items-center gap-y-2 2xl:gap-x-2 2xl:gap-y-0 my-3";
 
-function ID(props: IDProps) {
+function ID() {
     const [form, setForm] = useState<Partial<any>>({});
 
     const [editMode, setEditMode] = useState(false);
