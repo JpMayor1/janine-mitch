@@ -57,10 +57,10 @@ function ID(props: IDProps) {
             <div className="flex-auto">
                 <div className="w-full h-full flex flex-col gap-8 center printing-view">
                     {/* Front */}
-                    <div className="w-[800px] h-auto relative bg-red-400">
+                    <div className="w-[520px] h-auto relative">
                         <div className="absolute z-20">
-                            <div className="w-[410px] absolute top-[200px] left-[320px]">
-                                <div className="flex flex-row items-center justify-center gap-1 text-center text-3xl">
+                            <div className="w-[520px] absolute top-[130px] left-[80px]">
+                                <div className="flex flex-row items-center justify-center gap-1 text-center text-lg">
                                     <div>{form.firstname}</div>
                                     <div>{form.middlename}</div>
                                     <div>{form.lastname}</div>
@@ -68,43 +68,39 @@ function ID(props: IDProps) {
                             </div>
                         </div>
                         <Image
-                            width={800}
-                            height={550}
+                            width={520}
+                            height={400}
                             alt="id_front"
                             src={require("/public/id_front.jpg")}
                         />
                     </div>
 
                     {/* Back */}
-                    <div className="w-[800px] h-auto relative">
-                        <div className="absolute z-20 w-[70%] top-[20px] left-[250px] text-xl">
+                    <div className="w-[520px] h-auto relative">
+                        <div className="absolute z-20 w-[70%] top-[13px] left-[150px] text-sm">
                             <div>{form.valid}</div>
-                            <div className="mt-1">{form.ownerContact}</div>
+                            <div>{form.ownerContact}</div>
                             <div>{form.birthdate}</div>
-                            <div className="mt-2">{form.address}</div>
+                            <div>{form.address}</div>
                         </div>
 
-                        <div className="absolute z-20 w-[70%] top-[195px] left-[250px] text-xl">
+                        <div className="absolute z-20 w-[70%] top-[125px] left-[160px] text-sm">
                             <div>{form.emergencyPerson}</div>
                             <div className="mt-1">{form.emergencyContact}</div>
-                            <div className="mt-2">{form.emergencyAddress}</div>
+                            <div>{form.emergencyAddress}</div>
                         </div>
-                        <div className="absolute z-20 w-[570px] bottom-[85px] left-[75px] flex items-center justify-between  text-xl">
+                        <div className="absolute z-20 w-[370px] bottom-[55px] left-[65px] flex items-center justify-between  text-sm">
                             <div className="w-[50%]">
-                                <div className="">
-                                    {form.punongBarangay}
-                                </div>
+                                <div className="">{form.punongBarangay}</div>
                             </div>
                             <div className="w-[50%]">
-                                <div className="">
-                                    {form.validityOfficer}
-                                </div>
+                                <div className="">{form.validityOfficer}</div>
                             </div>
                         </div>
 
                         <Image
-                            width={800}
-                            height={550}
+                            width={520}
+                            height={400}
                             alt="id_front"
                             src={require("/public/id_back.jpg")}
                         />
