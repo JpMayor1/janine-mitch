@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { print, sendSms } from "../../../../utils/helpers";
+import Image from "next/image";
 
 function Health() {
     const [form, setForm] = useState<{}>({}) as any;
@@ -111,9 +112,21 @@ function Health() {
                     className="container mx-auto rounded-xl shadow-md bg-white"
                 >
                     <div>
-                        <Row>
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}
+                        >
                             <h3>CHILD IMMUNIZATION RECORD</h3>
-                        </Row>
+                            <img
+                                src="/logos/logo.jpg"
+                                alt="Logo"
+                                height={90}
+                                width={90}
+                            />
+                        </div>
                         <br />
                         <Row>
                             <SplitRow2
@@ -208,12 +221,26 @@ function Health() {
                             item1={<>Measles Mumps, Rubella Vaccine (MMR)</>}
                             item2={<>2 9 Months & 1 year</>}
                         />
-                        <GridRow
-                            item1={<div style={{ padding: "0.8rem" }}></div>}
-                        ></GridRow>
-                        <GridRow
-                            item1={<div style={{ padding: "0.8rem" }}></div>}
-                        ></GridRow>
+                    </div>
+                    <div
+                        style={{
+                            width: "100%",
+                            marginTop: 70,
+                            paddingLeft: 25,
+                        }}
+                    >
+                        <p
+                            style={{
+                                width: "200px",
+                                borderTop: "1px solid black",
+                                textAlign: "center",
+                                marginLeft: "10px",
+                                paddingTop: "5px",
+                            }}
+                        >
+                            Lourdes Traqueña
+                        </p>
+                        <p>Barangay Health Worker Officer</p>
                     </div>
                 </div>
             </div>

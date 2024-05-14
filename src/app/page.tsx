@@ -1,125 +1,151 @@
-'use client'
+"use client";
 
-import Link from "next/link"
-import { useEffect, useState } from "react"
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
-import { MdEmail, MdPassword } from "react-icons/md"
-import { Button, Input } from "@material-tailwind/react"
-import { User } from "@/lib/types"
-import { useUser } from "@/lib/globalStore"
-import AlertDialog from "@/components/AlertDialog"
-import { useRouter } from "next/navigation"
+import { MdEmail, MdPassword } from "react-icons/md";
+import { Button, Input } from "@material-tailwind/react";
+import { User } from "@/lib/types";
+import { useUser } from "@/lib/globalStore";
+import AlertDialog from "@/components/AlertDialog";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
-const landing_logo = require('./../../public/logos/landing_logo.png');
+const landing_logo = require("./../../public/logos/landing_logo.png");
 
 function Login() {
-  const user = useUser()
-  const router = useRouter()
+    const user = useUser();
+    const router = useRouter();
 
-  const [form, setForm] = useState<{ email?: string, password?: string }>({})
+    const [form, setForm] = useState<{ email?: string; password?: string }>({});
 
-  const [loading, setLoading] = useState<boolean>(false)
-  const [status, setStatus] = useState<{ state: boolean, message: string } | null>(null)
+    const [loading, setLoading] = useState<boolean>(false);
+    const [status, setStatus] = useState<{
+        state: boolean;
+        message: string;
+    } | null>(null);
 
-  useEffect(() => {
-    if (user.value.id) {
-      router.push('/organization');
-    }
+    useEffect(() => {
+        if (user.value.id) {
+            router.push("/organization");
+        }
+    }, [user.value, router]);
 
-  }, [user.value])
+    const Submit = async () => {
+        if (!form.email) return;
+        if (!form.password) return;
 
-  const Submit = async () => {
-    if (!form.email) return;
-    if (!form.password) return;
+        setLoading(true);
+        const res = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(form),
+        });
 
-    setLoading(true);
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(form)
-    })
+        if (res.status === 200) {
+            const userdata: User = await res.json();
+            user.write({
+                id: userdata.id,
+                role: userdata.role,
+                email: userdata.email,
+                username: userdata.username,
+            });
 
-    if (res.status === 200) {
-      const userdata: User = await res.json();
-      user.write({
-        id: userdata.id,
-        role: userdata.role,
-        email: userdata.email,
-        username: userdata.username
-      });
+            setStatus({
+                state: true,
+                message: "[AuthAPI]: Successfully Registered!",
+            });
+        } else {
+            setStatus({
+                state: false,
+                message: "[AuthAPI]: Invalid Credentials!",
+            });
+        }
 
-      setStatus({ state: true, message: '[AuthAPI]: Successfully Registered!' });
-    }
-    else {
-      setStatus({ state: false, message: '[AuthAPI]: Invalid Credentials!' });
-    }
+        setLoading(false);
+    };
 
-    setLoading(false);
-  }
+    return (
+        <div className="w-full h-full flex flex-col center bgcolor">
+            <div className="w-full 2xl:w-1/5">
+                <AlertDialog
+                    show={status ? true : false}
+                    onClose={() => setStatus(null)}
+                    isError={status ? status.state : undefined}
+                    color={
+                        status !== null
+                            ? status.state
+                                ? "green"
+                                : "red"
+                            : undefined
+                    }
+                    message={status ? status.message : undefined}
+                />
+            </div>
+            <div className="w-full 2xl:w-1/5 flex flex-col center">
+                <Image
+                    style={{ maxHeight: "17rem", maxWidth: "17rem" }}
+                    src={landing_logo}
+                    alt={""}
+                />
+            </div>
+            <div className="w-full 2xl:w-1/5 p-8 border rounded-lg shadow-sm bg-gray-50 text-blue-gray-500">
+                <div className="w-full my-5">
+                    <div className="text-3xl text-center font-semibold">
+                        Login
+                    </div>
+                </div>
 
-  return (
-    <div className="w-full h-full flex flex-col center bgcolor">
-      <div className="w-full 2xl:w-1/5">
-        <AlertDialog
-          show={status ? true : false}
-          onClose={() => setStatus(null)}
-          isError={status ? status.state : undefined}
-          color={status !== null ? status.state ? 'green' : 'red' : undefined}
-          message={status ? status.message : undefined}
-        />
-      </div>
-      <div className="w-full 2xl:w-1/5 flex flex-col center">
-        <Image style={{ maxHeight: "17rem", maxWidth: "17rem" }} src={landing_logo} alt={""} />
-      </div>
-      <div className="w-full 2xl:w-1/5 p-8 border rounded-lg shadow-sm bg-gray-50 text-blue-gray-500">
-        <div className="w-full my-5">
-          <div className="text-3xl text-center font-semibold">Login</div>
+                <form action="" className="w-full my-10">
+                    <div className="w-full my-5">
+                        <Input
+                            required
+                            label="Email"
+                            type="text"
+                            icon={<MdEmail />}
+                            onChange={(ev) =>
+                                setForm({ ...form, email: ev.target.value })
+                            }
+                        />
+                    </div>
+
+                    <div className="w-full my-5">
+                        <Input
+                            required
+                            label="Password"
+                            type="password"
+                            icon={<MdPassword />}
+                            onChange={(ev) =>
+                                setForm({ ...form, password: ev.target.value })
+                            }
+                        />
+                    </div>
+
+                    <div className="w-full my-5">
+                        <Button
+                            fullWidth
+                            loading={loading}
+                            className="row center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                            onClick={() => Submit()}
+                        >
+                            <span>Login</span>
+                        </Button>
+                    </div>
+
+                    <div className="w-full my-5 text-center">
+                        <span className="mr-1">{`Don't have an account?`}</span>
+                        <Link
+                            href={"/register"}
+                            className="text-base text-blue-400 hover:underline"
+                        >
+                            Create One
+                        </Link>
+                    </div>
+                </form>
+            </div>
         </div>
-
-        <form action="" className="w-full my-10">
-          <div className="w-full my-5">
-            <Input
-              required
-              label="Email"
-              type="text"
-              icon={<MdEmail />}
-              onChange={(ev) => setForm({ ...form, email: ev.target.value })}
-            />
-          </div>
-
-          <div className="w-full my-5">
-            <Input
-              required
-              label="Password"
-              type="password"
-              icon={<MdPassword />}
-              onChange={(ev) => setForm({ ...form, password: ev.target.value })}
-            />
-          </div>
-
-          <div className="w-full my-5">
-            <Button
-              fullWidth
-              loading={loading}
-              className="row center focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-              onClick={() => Submit()}
-            >
-              <span>Login</span>
-            </Button>
-          </div>
-
-          <div className="w-full my-5 text-center">
-            <span className="mr-1">Don't have an account?</span>
-            <Link href={'/register'} className="text-base text-blue-400 hover:underline">
-              Create One
-            </Link>
-          </div>
-        </form>
-      </div>
-    </div>
-  )
+    );
 }
 
-export default Login
+export default Login;
