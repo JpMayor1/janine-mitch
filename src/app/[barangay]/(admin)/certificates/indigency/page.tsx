@@ -8,7 +8,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import Image from "next/image";
 import { print, sendSms } from "../../../../utils/helpers";
 
-const barangay_logo = require("./../../../../../../public/logos/barangay_logo.png");
+const barangay_logo = require("./../../../../../../public/logos/logo.jpg");
 const municipality_logo = require("./../../../../../../public/logos/municipality_logo.png");
 
 const nthNumber = (number: number) => {
@@ -58,6 +58,8 @@ function Indigency() {
                                 style={{ flex: "20%" }}
                                 src={barangay_logo}
                                 alt={""}
+                                height={150}
+                                width={150}
                             />
                             <div style={{ flex: "60%", textAlign: "center" }}>
                                 Republic of the Philippines
@@ -72,6 +74,8 @@ function Indigency() {
                                 style={{ flex: "20%" }}
                                 src={municipality_logo}
                                 alt={""}
+                                height={150}
+                                width={150}
                             />
                         </div>
                         <br />
@@ -112,7 +116,7 @@ function Indigency() {
                         <br />
                         <br />
                         <div style={{ display: "flex" }}>
-                            <div style={{ flex: "20%" }}>
+                            <div style={{ flex: "50%", marginLeft: "20px" }}>
                                 Prepared By: <br /> <br />
                                 <div style={{ textAlign: "center" }}>
                                     MARIA DENNISE B. MORENO
@@ -120,8 +124,8 @@ function Indigency() {
                                     Barangay Secretary
                                 </div>
                             </div>
-                            <div style={{ flex: "60%" }} />
-                            <div style={{ flex: "20%" }}>
+
+                            <div style={{ flex: "50%", marginRight: "20px" }}>
                                 Attested by: <br /> <br />
                                 <div style={{ textAlign: "center" }}>
                                     HON. ROLANDO M RAFON <br />

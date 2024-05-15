@@ -8,6 +8,9 @@ import { ErrorMessage } from "@hookform/error-message";
 import { print, sendSms } from "../../../../utils/helpers";
 import Image from "next/image";
 
+const barangay_logo = require("./../../../../../../public/logos/logo.jpg");
+const municipality_logo = require("./../../../../../../public/logos/municipality_logo.png");
+
 function Health() {
     const [form, setForm] = useState<{}>({}) as any;
     const {
@@ -112,20 +115,40 @@ function Health() {
                     className="container mx-auto rounded-xl shadow-md bg-white"
                 >
                     <div>
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                            }}
-                        >
-                            <h3>CHILD IMMUNIZATION RECORD</h3>
-                            <img
+                        {/* <img
                                 src="/logos/logo.jpg"
                                 alt="Logo"
-                                height={90}
-                                width={90}
+                                height={150}
+                                width={150}
+                            /> */}
+                        <div style={{ display: "flex" }}>
+                            <Image
+                                style={{ flex: "20%" }}
+                                src={barangay_logo}
+                                alt={"Brgy. Logo"}
+                                height={150}
+                                width={150}
                             />
+                            <div style={{ flex: "60%", textAlign: "center" }}>
+                                Republic of the Philippines
+                                <br />
+                                Province of Camarines Norte <br />
+                                Municipality of Jose Panganiban <br />
+                                Barangay Plaridel <br /> <br />
+                                <br />
+                                <b>OFFICE OF THE PUNONG BARANGAY</b>
+                            </div>
+                            <Image
+                                style={{ flex: "20%" }}
+                                src={municipality_logo}
+                                alt={"Municipality Logo"}
+                                height={150}
+                                width={150}
+                            />
+                        </div>
+                        <br />
+                        <div style={{ textAlign: "center" }}>
+                            <h3>CHILD IMMUNIZATION RECORD</h3>
                         </div>
                         <br />
                         <Row>
@@ -217,15 +240,11 @@ function Health() {
                             item1={<>Pneumococcai Conjugate Vaccine (MMR)</>}
                             item2={<>3 1 ½ ,2 ½, 3 ½ Months</>}
                         />
-                        <GridRow
-                            item1={<>Measles Mumps, Rubella Vaccine (MMR)</>}
-                            item2={<>2 9 Months & 1 year</>}
-                        />
                     </div>
                     <div
                         style={{
                             width: "100%",
-                            marginTop: 70,
+                            marginTop: 40,
                             paddingLeft: 25,
                         }}
                     >
@@ -238,9 +257,8 @@ function Health() {
                                 paddingTop: "5px",
                             }}
                         >
-                            Lourdes Traqueña
+                            Lourdes Traqueña, Barangay Health Worker Officer
                         </p>
-                        <p>Barangay Health Worker Officer</p>
                     </div>
                 </div>
             </div>

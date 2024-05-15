@@ -25,7 +25,7 @@ const config: Config = withMT({
                 },
             },
             backgroundImage: {
-                logo: "url('/logos/logo.jpg')",
+                logo: "url('/logos/landing_logo.png')",
             },
         },
     },
